@@ -1,55 +1,120 @@
-const userService=require("../services/userService")
+const userService = require("../services/userService")
+const tokenGenerate=require('../middleware/tocken');
+const nodeMail=require('../middleware/nodeMailer')
+
 exports.register = (req, res) => {
-        console.log("registation done");
-        req.checkBody('firstName', 'firstname is invalid').notEmpty().isAlpha();
-        req.checkBody('lastName', 'lastname is invalid').notEmpty().isAlpha();
-        req.checkBody('email', 'email is invalid').notEmpty().isEmail();
-        req.checkBody('password', 'password is invalid').notEmpty().len(8, 13);
-        var error = req.validationErrors();
-        var response = {};
-        if (error) {
-            response.error = error;
-            response.sucess = false;
-            res.status(422).send(response);
-            console.log("errpo",error);
-        } else {
-            userService.register(req, (err, data) => {
-                if (err) {
-                    response.sucess=false;
-                    response.data=err;
-                    res.status(404).send(response);
-                } else {
-                    response.sucess=true;
-                    response.data=data;
-                    res.status(200).send(response);
-                }
-            })
-        }
-}
-exports.login=(req,res)=>{
-    console.log("Login done");
+    console.log("registation done");
+    req.checkBody('firstName', 'firstname is invalid').notEmpty().isAlpha();
+    req.checkBody('lastName', 'lastname is invalid').notEmpty().isAlpha();
     req.checkBody('email', 'email is invalid').notEmpty().isEmail();
     req.checkBody('password', 'password is invalid').notEmpty().len(8, 13);
-    var error=req.validationErrors();
-    var response={};
-    if(error){
+    var error = req.validationErrors();
+    var response = {};
+    if (error) {
         response.error = error;
-            response.sucess = false;
-            res.status(422).send(response);
-            console.log("errpo",error);
-    }
-    else{
-        userService.login(req,(err,data)=>{
+        response.sucess = false;
+        res.status(422).send(response);
+        console.log("errpo-register", error);
+    } else {
+
+        userService.register(req, (err, data) => {
             if (err) {
-                response.sucess=false;
-                response.data=err;
+                response.sucessss = false;
+                response.data = err;
                 res.status(404).send(response);
             } else {
-                response.sucess=true;
-                response.data=data;
+                response.sucess = true;
+                response.data = data;
                 res.status(200).send(response);
             }
-    })
+        })
+
+    }
 }
+exports.login = (req, res) => {
+    console.log("Loging on");
+    req.checkBody('email', 'email is invaild').notEmpty().isEmail();
+    req.checkBody('password', 'Password is inavlid').notEmpty().len(8, 13);
+    var error = req.validationErrors();
+    var response = {};
+    if (error) {
+        response.error = error;
+        response.failure = false;
+        res.status("422").send(response);
+        console.log("Error in login", error)
+    }
+    else {
+        userService.login(req, (err, data) => {
+            if (err) {
+                response.failure = false;
+                response.data = err;
+                res.status(404).send(response);
+            }
+            else {
+                response.sucess = true;
+                response.data = data;
+                res.status(200).send(response);
+            }
+
+        })
+    }
 }
 
+exports.forgotPassword = (req, res) => {
+    console.log("If forgot password");
+    req.checkBody('email', 'email is invalid').notEmpty().isEmail();
+    var error = req.validationErrors();
+    var response = {};
+    if (error) {
+        response.error = error;
+        response.failure = false;
+        res.status(422).send(response)
+    }
+    else {
+        userService.forgotPassword(req, (err, data) => {
+            if (err) {
+                response.failure = false;
+                response.data = err;
+                res.status(404).send(response);
+            }else{
+                let payLoad=data._id;
+                let obj=tokenGenerate.GenerateToken(payLoad);
+                console.log("controller pay load",obj);
+                let url=`http://localhost:3000/resetPassword/${obj.token}`
+                // console.log("controller pay load",url);
+                nodeMail.sendMailer(url,req.body.email)
+
+                response.sucess=true;
+                response.data = data;
+                res.status(200).send(response);
+            }
+
+        })
+    }
+
+}
+exports.resetPassword=(req,res)=>{
+    console.log("Re-setting password");
+    req.checkBody('password','password is invalid').notEmpty().len(8,13);
+    req.checkBody('confirmPassword','password is invalid').notEmpty().len(8,13);
+    var error=req.validationErrors();
+    if (req.body.password != req.body.confirmPassword)
+            var error = "confirmpassword is incorrect";
+    var response={};
+    if(error)
+    {
+        response.error=error;
+        response.failure=false;
+        return res.status(422).send(response);
+    }else{
+        userService.resetPassword(req,(err,data)=>{
+            if(err)
+            {
+                res.status(404).send(response);
+            }else{
+                res.status(200).send(data);
+            }
+        })
+        }
+
+}
