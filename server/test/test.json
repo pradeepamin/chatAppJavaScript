@@ -1,0 +1,19 @@
+{
+    
+    "registration": 
+        {
+            "firstName":"pradeep",
+            "lastName":"Amin",
+            "email":"archi.kaup@gmail.com",
+            "password":"1234567891"
+        },
+       
+    "login": 
+        {
+            "email":"archi.kaup@gmail.com",
+            "password":"1234567891"
+        }
+        
+    
+   
+}

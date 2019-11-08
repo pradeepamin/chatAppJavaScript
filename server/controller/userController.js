@@ -3,8 +3,7 @@ const tokenGenerate=require('../middleware/tocken');
 const nodeMail=require('../middleware/nodeMailer')
 
 exports.register = (req, res) => {
-    console.log("registation done");
-    req.checkBody('firstName', 'firstname is invalid').notEmpty().isAlpha();
+        req.checkBody('firstName', 'firstname is invalid').notEmpty().isAlpha();
     req.checkBody('lastName', 'lastname is invalid').notEmpty().isAlpha();
     req.checkBody('email', 'email is invalid').notEmpty().isEmail();
     req.checkBody('password', 'password is invalid').notEmpty().len(8, 13);
@@ -15,6 +14,7 @@ exports.register = (req, res) => {
         response.sucess = false;
         res.status(422).send(response);
         console.log("errpo-register", error);
+        console.log("REs",response)
     } else {
 
         userService.register(req, (err, data) => {

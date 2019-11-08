@@ -1,5 +1,5 @@
 const jwt=require('jsonwebtoken');
-console.log("in token");
+// console.log("in token");
 exports.GenerateToken=(payload)=>{
    {
        console.log("in token id",payload);

@@ -39,6 +39,7 @@ exports.Register = (req, callback) => {
             if (data) callback("user exits");
             else {
                 emailExistance.check(req.body.email, (err, result) => {
+    
                     if (!result) callback("provide valid email")
                     else {
                         bcrypt.hash(req.body.password, 10, (err, encrypted) => {
@@ -100,7 +101,7 @@ exports.ResetPassword=(req,callback)=>{
         register.updateOne({
                 "_id": req.decoded.payload
             }, {
-                password: encrypted
+                "password"                                                                                             : encrypted
             },
             (err, data) => {
                 if (data)
