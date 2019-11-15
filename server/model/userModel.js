@@ -2,8 +2,10 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const emailExistance = require("email-existence");
+/*creating a schema of database*/
 var Schema = mongoose.Schema;
 const userData = new Schema({
+    /** creating schema for registration */
     firstName: {
         type: String,
         required: true
@@ -29,7 +31,12 @@ const userData = new Schema({
 
 var register = mongoose.model("users", userData);
 
-
+/**
+ * @desc Gets the input from front end and stores data in deatabase
+ * @param req request contains all the requested data
+ * @param callback a callback function
+ * @return return a call back function err or data
+ */
 exports.Register = (req, callback) => {
 
     try {
@@ -64,6 +71,12 @@ exports.Register = (req, callback) => {
         console.log(e);
     }
 }
+/**
+ * @desc Gets the input from front end and stores data in deatabase
+ * @param req request contains all the requested data
+ * @param callback a callback function
+ * @return return a call back function err or data
+ */
 exports.Login = (req, callback) => {
     register.findOne({
         "email": req.body.email
@@ -80,7 +93,12 @@ exports.Login = (req, callback) => {
     })
 
 }
-
+/**
+ * @desc Gets the input from front end and stores data in deatabase
+ * @param req request contains all the requested data
+ * @param callback a callback function
+ * @return return a call back function err or data
+ */
 exports.ForgotPassword=(req,callback)=>{
     register.findOne({
         "email":req.body.email
@@ -94,7 +112,12 @@ exports.ForgotPassword=(req,callback)=>{
     })
 
 }
-
+/**
+ * @desc Gets the input from front end and stores data in deatabase
+ * @param req request contains all the requested data
+ * @param callback a callback function
+ * @return return a call back function err or data
+ */
 exports.ResetPassword=(req,callback)=>{
     console.log("reqqqqq",req.decoded);
     bcrypt.hash(req.body.password, 10, (err, encrypted) => {
@@ -102,8 +125,7 @@ exports.ResetPassword=(req,callback)=>{
                 "_id": req.decoded.payload
             }, {
                 "password"                                                                                             : encrypted
-            },
-            (err, data) => {
+            }, (err, data) => {
                 if (data)
                     callback(null, data);
                 else
