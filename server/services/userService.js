@@ -73,3 +73,34 @@ exports.resetPassword=(req,callback)=>{
     console.log(e);
 }
 }
+
+
+exports.chat= (req, callback) => {
+    model.chat(req, (err, data) => {
+        if (err) {
+            callback(err);
+        } else
+            callback(null, data);
+    })
+}
+
+
+
+
+exports.getUsers=(req,callback)=>{
+    model.getUsers(req,(err,data)=>{
+        if(err){
+            callback(err);
+        }else
+        callback(null,data)
+    })
+}
+
+exports.getMsg=(req,callback)=>{
+    model.getMsg(req,(err,data)=>{
+        if(err){
+            callback(err);
+        }else
+        callback(null,data);
+    })
+}

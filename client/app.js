@@ -19,7 +19,7 @@ app.config(function ($routeProvider) {
             controller: "forgotPasswordCtrl"
 
         })
-        .when('/resetpassword', {
+        .when('/resetPassword/:token', {
             templateUrl: "./views/resetPassword.html",
             controller: "resetPasswordCtrl"
 

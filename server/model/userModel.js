@@ -28,8 +28,29 @@ const userData = new Schema({
     }
 );
 
+var chat = new Schema({
+    from: {
+        type: String,
+        required: true
+    },
+
+    to:
+    {
+        type: String,
+        required: true,
+    },
+    msg: {
+        type: String,
+        required: true
+    },
+},
+    {
+        timestamps: true
+
+    });
 
 var register = mongoose.model("users", userData);
+var chatMsg = mongoose.model("chat", chat);
 
 /**
  * @desc Gets the input from front end and stores data in deatabase
@@ -46,7 +67,7 @@ exports.Register = (req, callback) => {
             if (data) callback("user exits");
             else {
                 emailExistance.check(req.body.email, (err, result) => {
-    
+
                     if (!result) callback("provide valid email")
                     else {
                         bcrypt.hash(req.body.password, 10, (err, encrypted) => {
@@ -99,14 +120,14 @@ exports.Login = (req, callback) => {
  * @param callback a callback function
  * @return return a call back function err or data
  */
-exports.ForgotPassword=(req,callback)=>{
+exports.ForgotPassword = (req, callback) => {
     register.findOne({
-        "email":req.body.email
-    },(err,data)=>{
-        if(data){
-            callback(null,data)
+        "email": req.body.email
+    }, (err, data) => {
+        if (data) {
+            callback(null, data)
         }
-        else{
+        else {
             callback("invalid user email");
         }
     })
@@ -118,14 +139,14 @@ exports.ForgotPassword=(req,callback)=>{
  * @param callback a callback function
  * @return return a call back function err or data
  */
-exports.ResetPassword=(req,callback)=>{
-    console.log("reqqqqq",req.decoded);
+exports.ResetPassword = (req, callback) => {
+    console.log("reqqqqq", req.decoded);
     bcrypt.hash(req.body.password, 10, (err, encrypted) => {
-        register.updateOne({
-                "_id": req.decoded.payload
-            }, {
-                "password"                                                                                             : encrypted
-            }, (err, data) => {
+        register.updateOne(
+            { "_id": req.decoded.payload }, {
+                "password": encrypted
+            }
+            , (err, data) => {
                 if (data)
                     callback(null, data);
                 else
@@ -136,4 +157,54 @@ exports.ResetPassword=(req,callback)=>{
     })
 
 }
+exports.chat = (req, callback) => {
+    console.log("req from -----", req);
+    var details = new chatMsg({
+        "from": req.body.from,
+        "to": req.body.to,
+        "msg": req.body.msg
+    });
+    console.log("details from -----", details);
+    //creates a collection
+    details.save((err, data) => {
+        if (err) {
+            console.log("message not saved");
+            return callback(err);
+        } else {
+            console.log("msg saved");
+            console.log("datataa from -----", data);
+            return callback(null, data);
 
+        }
+
+    });
+}
+
+
+exports.getUsers = (req, callback) => {
+
+    register.find((err, data) => {
+        if (err) {
+            callback(err);
+        }
+        else {
+            console.log(data);
+            callback(null, data);
+        }
+    })
+
+}
+
+exports.getMsg = (req, callback) => {
+
+    chatMsg.find({}, (err, data) => {
+        if (err) {
+            callback(err);
+        }
+        if (data) {
+            console.log(data);
+
+            callback(null, data);
+        }
+    })
+}

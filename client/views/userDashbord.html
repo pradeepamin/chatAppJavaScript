@@ -1,7 +1,36 @@
-<html>
+<html ng-controller="myApp">
 <head>
+<title>Chat Application</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
-<p><center>HI DASHBOARD</center></p>
+
+
+<body ng-controller="listUser">
+    <div class="vw-60 vh-90" id="body-color">
+        <div class="col" id="navi-color">
+            <div class="border" id="border"
+            <div role="navigation">
+                <h1 class="navbar-brand"><label class="display-4">Chat Application</label></h1>
+            </div>
+            <div role="navigation" style="text-align: right" class="w-100 p-3">
+                <label class="display-5">
+                    <strong>Welcome--{{userName}}</strong>
+                </label>    
+                <button class="btn btn-primary" ng-click="logout()">
+                    Logout
+                </button>
+                
+            
+            </div>
+        </div>
+        <div class="row">
+
+
+        </div>
+        </div>
+    </div>
+    
 </body>
 </html>

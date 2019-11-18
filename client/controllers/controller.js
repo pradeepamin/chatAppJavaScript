@@ -6,6 +6,7 @@ app.controller("loginCtrl", function ($scope, servicesLogin) {
             "password": $scope.password
         }
         console.log("data", data);
+        console.log("$SCCope",$scope)
         servicesLogin.login(data, $scope);
     }
 });
@@ -43,11 +44,11 @@ app.controller("resetPasswordCtrl", function ($scope, servicesLogin, $location) 
     //checks for the token exist,if exist split the toekn from url
     if ($location.url().indexOf('token') !== -1) {
         $scope.token = $location.url().split('=')[1];
-        console.log("Token in controler", $scope.token)
+        console.log("Token in controler--client", window.location.href())
     }
    
     $scope.resetPassword = () => {
-        if ($scope.Password == null || $scope.confirmPassword == null) {
+        if ($scope.password == null || $scope.confirmPassword == null) {
             $scope.result = "Passwords Cant be null";
         }
         else {

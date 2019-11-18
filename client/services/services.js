@@ -77,10 +77,16 @@ app.service('servicesLogin', function ($http, $location, SocketService) {
 
    
     this.resetPassword = (data, $scope) => {
+        var url= window.location.href;
+        console.log("Reset password");
+        var token=url.split("/");
+        console.log("To check token",token[5]);
+        var tok=token[5]
+        console.log("reset password data",data);
         try {
             $http({
                 method: 'POST',
-                url: 'http://localhost:3000/resetpassword/' + $scope.token,
+                url: `http://localhost:3000/resetpassword/${tok}`,
                 data: data
             }).then(function sucessCallback(response) {
                 $scope.result = "Changed Sucessfully";
@@ -90,7 +96,7 @@ app.service('servicesLogin', function ($http, $location, SocketService) {
                     if ($scope.Password == null && $scope.confirmPassword == null)
                         $scope.result = response.data.error[0].msg;
                     else
-                        $scope.result = "Password mismatch";
+                        $scope.result = "Week Password";
                     console.log("changed UnSucessFull ===>", response);
                 });
         } catch (e) {
