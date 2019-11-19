@@ -2,12 +2,14 @@
 h1 {
     text-align: center;
 }
-
+h3{
+text-align: center;
+}
 /* specifies the max width for form,margin,padding */
 
 #body-color {
     background-color: rgb(121, 109, 175);
-    height: 90%;
+    height: 100%;
 }
 
 /* class css,specifies border */
@@ -29,7 +31,7 @@ div {
 }
 
 #navi-color {
-    background-color: rgb(173, 156, 80);
+    background-color: rgb(163, 196, 54);
     display: block;
     margin: 0;
     padding: 0;
@@ -37,16 +39,26 @@ div {
 }
 
 #navi-color-body {
-    background-color: rgb(9, 122, 25);
+    background-color: rgb(90, 122, 155);
     display: block;
     margin: 0;
-    padding: 0;
-    height: 300px;
+    padding: 10;
+    height: 290px;
+    width: 359px;
     overflow-y: scroll;
 
 
 
 }
+.container {
+    padding: 220px;
+    height: 99vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa 
+  }
 
 
 #users-color {
@@ -62,11 +74,11 @@ div {
 
 .typemsg {
 
-    position: fixed;
+ 
     left: 450px;
     bottom: 85px;
     margin: 0%;
-    padding: 0%;
+   /* padding-top: 30%;*/
 }
 
 .footer {
@@ -74,7 +86,24 @@ div {
     left: 8;
     bottom: 0;
     width: 97.7%;
-    background-color: rgb(0, 183, 255);
-    color: solid black;
+    background-color: rgb(100, 125, 255);
+    color: solid rgb(251, 251, 251);
     text-align: left;
 }
+
+.b1
+{
+    width: 100%;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rows
+{
+    display:flex;
+    flex-direction: row;
+}
+
+
+  
+ 

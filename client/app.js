@@ -26,22 +26,12 @@ app.config(function ($routeProvider) {
         })
         .when('/userDashbord', {
             templateUrl: "./views/userDashbord.html",
-            controller: "listUsers"
-
+            controller: "controllerChat"
         })
-        .when('/groupChat', {
-            templateUrl: "./views/groupChat.html",
-            controller: "listUsers"
-
-        })
-        .when('/redirect', {
-            templateUrl: "./views/userDashbord.html",
-            controller: "listUsers"
-
-        })
-        .otherwise({
+        
+          .otherwise({
             redirectTo: "/"
-        });
+          })
 });
 
 

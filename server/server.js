@@ -38,7 +38,29 @@ app.use('/', routers);
 
 app.use(express.static('../client'))
 //Initalizing the app port number,Telling frame work to start service
-app.listen(process.env.PORT, () => {
+var server=app.listen(process.env.PORT, () => {
     console.log("Server is listing on port 3000")
 });
+const io=require('socket.io').listen(server);
+io.on('connection',(socket)=>{
+    console.log("Connecting socket");
+    io.on('connection',(socket)=>{
+        socket.on("Storemsg",(data)=>{
+            if(err){
+                console.log("unsuccesful")
+            }else{
+                console.log("In serever.js",res);
+                io.sockets.emit("updatedata",res);
+                // console.log("update the data.")
+            }
+            
+        })
+    });
+});
+io.on('disconnect',function(){
+    console.log("socket disconnected");
+    
+})
+
+
 module.exports=app

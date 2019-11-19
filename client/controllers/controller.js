@@ -49,7 +49,7 @@ app.controller("resetPasswordCtrl", function ($scope, servicesLogin, $location) 
    
     $scope.resetPassword = () => {
         if ($scope.password == null || $scope.confirmPassword == null) {
-            $scope.result = "Passwords Cant be null";
+            $scope.result = "Passwords Cant be empty";
         }
         else {
             var data = {

@@ -6,6 +6,8 @@ app.service('servicesLogin', function ($http, $location, SocketService) {
    
     this.login = (data, $scope) => {
         //sending the data as a http request
+        console.log("asdlfjlasdjf",data);
+        
         try {
             $http({
                 method: 'POST',
@@ -13,10 +15,10 @@ app.service('servicesLogin', function ($http, $location, SocketService) {
                 data: data
             }).then(function sucessCallback(response) {
                 let user = response.data[0];
-
+                console.log("response in servicesssss",response);
+                
                 $location.path("/userDashbord");
                 //storing the values in localstorage
-                localStorage.setItem('user', JSON.stringify(user));
                 console.log("Login sucess ==>", response);
             },
                 function errrCallback(response) {
@@ -93,7 +95,7 @@ app.service('servicesLogin', function ($http, $location, SocketService) {
                 console.log("changed sucess ==>", response.status);
             },
                 function errrCallback(response) {
-                    if ($scope.Password == null && $scope.confirmPassword == null)
+                    if ($scope.password == null && $scope.confirmPassword == null)
                         $scope.result = response.data.error[0].msg;
                     else
                         $scope.result = "Week Password";
