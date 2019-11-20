@@ -1,62 +1,59 @@
-app.service("chatService",function($http,SocketService){
-    this.getAllUser=function($scope){
-        console.log("service in getAllUser");
-        $http({
-            method:'GET',
-            url:'http://localhost:3000/getUsers'
-    
-        }).then(function successCallBack(response){
-            $scope.data=response.data;
-            console.log("get all users details",response);
-            
-        },
-        function errorCallBack(error){
-            $scope.value="user register not done..";
-            console.log("failed",error);
-        }
+(function(){
+
+    const app=angular.module('myApp');
+
+    app.service("chatService",function($http,SocketService){
         
-        )
-    }
-    this.getMsg=function($scope,value){
-        let data={
-            "from":$scope.userEmail,
-            "to":value.email
-        };
-        localStorage.setItem('chat',JSON.stringify(data));
-        console.log("DATA.....",data)
-        $http({
-            method:"GET",
-            url:'http://localhost:3000/getMsg',
-            data:Data
-
-        }).then(function successCallBack(response){
-            $scope.msg=response.data;
-            SocketService.emit("updatedlist in service",response.data)
-            console.log("getuserMessage",response);
-        },
-        function errorCallBack(error){
-            $scope.value="no user register";
-            console.log("failed",error);
+        this.getUser=function(){
+            console.log("service in getAllUser");
+            return $http({
+                method:'GET',
+                url:'http://localhost:3000/getUsers'
+        
+            });
         }
-        )
-    }
- 
-    this.getUserName = ($scope) => {
-        try {
-            console.log("service  in getUsername");
-            var loginDetails = JSON.parse(localStorage.getItem("user"));
-            $scope.userEmail = loginDetails.email;
-            $scope.userName = loginDetails.firstName;
-            console.log("email ", $scope.userEmail);
-            console.log("username: ", $scope.userName);
-        } catch (e) {
-            console.log(e);
+        this.getMsg=function($scope){
+            let data={
+                "from":$scope.firstName,
+                "to":$scope.receiverEmail
+            };
+            return $http({
+                method:"GET",
+                url:'http://localhost:3000/getMsg',
+                data:data
+
+        }).then(function sucessCallback(response) {
+            console.log("RESPONSE---------*********",response);
+            $scope.msgs = response.data;
+            console.log("msMESSAGE---------*********",response.data);
+            console.log("fetch sucesddddds ==>", response);
         }
-    }
-
-    this.logout = () => {
-        localStorage.clear;
-        $location.path('/');
-    }
-
-})
+            ,
+            function errrCallback(response) {
+                // $scope.value = "No users registred.. ";
+                console.log("fetch UnSucessFull ===>", response);
+            })
+            
+        }
+     
+        this.getUserName = ($scope) => {
+            try {
+                console.log("service  in getUsername",$scope);
+                var loginDetails = JSON.parse(localStorage.getItem("user"));
+                $scope.userEmail = loginDetails.email;
+                $scope.userName = loginDetails.firstName;
+                console.log("email ", $scope.userEmail);
+                console.log("username: ", $scope.userName);
+                return $scope.userName;
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    
+        this.logout = () => {
+            localStorage.clear;
+            $location.path('/');
+        }
+    
+    })
+})();

@@ -1,4 +1,4 @@
-<html ng-controller="myApp">
+<!-- <html ng-controller="myApp">
 
 <head>
     <title>Chat Application</title>
@@ -6,10 +6,10 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-</head>
+</head> -->
 
 
-<body ng-controller="listUser" class="b1">
+<div style='width:100%;height:100%;'>
     <div class="vw-60 vh-90" id="body-color">
 
         <div class="col" id="navi-color">
@@ -20,53 +20,44 @@
             </div>
             <div role="navigation" style="text-align: right" class="w-100 p-3">
                 <label class="display-5">
-                    <strong>Welcome--{{userName}}</strong>
+                    <strong>Welcome--{{ firstName }}</strong>
                 </label>
                 <button class="btn btn-default" ng-click="logout()">
-                    Logout
+              
+                    <a href="http://localhost:3000/#!/login">logout</a>
                 </button>
             </div>
         </div>
-
+        <div class="c1">
+        <div>
+            <ul  ng-repeat="user in allUsers">
+                <li ng-click="person(user.firstName)">
+                    {{ user.firstName }}
+                </li>
+            </ul>
+        </div>
         <div class="rows">
-            <div class="col-sm-4">
-                <button class="btn btn-default btn-block" 
-                        ng-model=value 
-                        ng-click="person(value)"
-                        ng-if="value.email!=userEmail">
-                    {{value.firstName }}</button>
-                </button>
-            </div>
-
-
             <div>
-
-                <div class="col-sm-12" id="navi-color-body" ng-show=value>
+                <div class="col-sm-12" id="navi-color-body">
                     <button class="btn btn-default">
-                        <strong ng-hide=grpPerson ng-show=value>{{value.firstName }}</strong>
+                        <strong >{{receiverEmail }}</strong>
                     </button>
                     <div ng-repeat="chat in msgs" class="chat">
-
-                        <p class="chatMsg" ng-show="chat.from != userEmail" style="text-align:left;color:black">
+                        <p class="chatMsg" ng-show="chat.to != firstName" style="text-align:left;color:black">
                             {{chat.from}}:::<strong>{{chat.msg}}</strong></p>
-                        <p class="chatMsg" ng-show="chat.from == userEmail" style="text-align:right;color:black">
+                        <p class="chatMsg" ng-show="chat.firstName == firstName" style="text-align:right;color:black">
                             <strong>{{chat.msg}}</strong></p>
                     </div>
-                   
                 </div>
                 <div class="typemsg">
-                        <input type="text" name="msg" ng-model="msg1" placeholder="Type a message...."
+                        <input type="text" name="msg" ng-model="msg1"  placeholder="Type a message...."
                             style=height:30px;" ng-keyup=" $event.keyCode==13 && storeMsg()">
                         <button class="fa fa-send" ng-click="storeMsg();"> send</button>
-
                     </div>
-
             </div>
         </div>
-
     </div>
-   
+    </div>
+</div>
 
-</body>
-
-</html>
+<!-- </html> -->

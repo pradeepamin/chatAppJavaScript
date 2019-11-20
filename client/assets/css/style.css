@@ -44,7 +44,7 @@ div {
     margin: 0;
     padding: 10;
     height: 290px;
-    width: 359px;
+    width: 662px;
     overflow-y: scroll;
 
 
@@ -105,5 +105,15 @@ div {
 }
 
 
-  
+li{
+    color:white;
+    background: black;
+    width: 261%;
+}
+.c1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
  

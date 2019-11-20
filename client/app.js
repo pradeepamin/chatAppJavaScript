@@ -26,7 +26,7 @@ app.config(function ($routeProvider) {
         })
         .when('/userDashbord', {
             templateUrl: "./views/userDashbord.html",
-            controller: "controllerChat"
+            controller: "controllerChat as c"
         })
         
           .otherwise({
