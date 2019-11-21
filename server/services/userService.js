@@ -73,7 +73,12 @@ exports.resetPassword=(req,callback)=>{
     console.log(e);
 }
 }
-
+/**
+ * @desc Gets the input from front end pass to model
+ * @param req request contains all the requested data
+ * @param callback sends the data back or err
+ * @return responses with a http response
+ */
 
 exports.chat= (req, callback) => {
     model.chat(req, (err, data) => {
@@ -85,7 +90,12 @@ exports.chat= (req, callback) => {
 }
 
 
-
+/**
+ * @desc Gets the input from front end pass to model
+ * @param req request contains all the requested data
+ * @param callback sends the data back or err
+ * @return responses with a http response
+ */
 
 exports.getUsers=(req,callback)=>{
     model.getUsers(req,(err,data)=>{
@@ -95,6 +105,12 @@ exports.getUsers=(req,callback)=>{
         callback(null,data)
     })
 }
+/**
+ * @desc Gets the input from front end pass to model
+ * @param req request contains all the requested data
+ * @param callback sends the data back or err
+ * @return responses with a http response
+ */
 
 exports.getMsg=(req,callback)=>{
     model.getMsg(req,(err,data)=>{

@@ -1,7 +1,21 @@
+/**
+* @desc is a controler function ,contains all opertions to perform when registering
+* @param servicesLogin ,invokes when the login page invoked
+* @param $scope ,inheriates the parent process $rootScope,which can be used throught this session.
+* @param servicesLogin,creting an service contoler for logincontrol.
+* @param $location,is a global scope,used to redirect the pages.
+*/
+
 (function(){
     var app=angular.module('myApp');
 
     app.service('servicesLogin', function ($http, $location, SocketService) {
+        /**
+     * @desc invokes when user try to login
+     * @param data contains users login details.
+     * @param $scope is a cild process of rootSope contains session values
+     * @return sucess or failure
+     * */
         this.login = (data, $scope) => {
             //sending the data as a http request
             console.log("logiasdn data",data);
@@ -15,6 +29,7 @@
                 }).then(function sucessCallback(response) {
                     let user = response.data.data;
                    localStorage.setItem('firstName',user['firstName'])
+
     
 
                     $location.path("/userDashbord");
@@ -28,6 +43,12 @@
                 console.log(e);
             }
         }
+        /**
+     * @desc register   gets the data from front end pass the data to service
+     * @param data contains users register details.
+     * @param $scope is a cild process of rootSope contains session values
+     * @return sucess or failure
+     * */
         
         this.register = (data, $scope) => {
             try {
@@ -51,7 +72,12 @@
             }
 
         }
-        
+           /**
+     * @desc invokes when clicks on forgot password
+     * @param data contains users login details.
+     * @param $scope is a cild process of rootSope contains session values
+     * @return sucess or failure
+     * */
         this.forgotPassword = (data, $scope) => {
             try {
                 $http({
@@ -74,7 +100,12 @@
             }
         }
     
-       
+         /**
+         * @desc invokes when clicks on verification link 
+         * @param data contains users login details.
+         * @param $scope is a cild process of rootSope contains session values
+         * @return sucess or failure
+         * */
         this.resetPassword = (data, $scope) => {
             var url= window.location.href;
             console.log("Reset password");

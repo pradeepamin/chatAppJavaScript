@@ -1,5 +1,9 @@
 (function(){
     var app=angular.module('myApp');
+    /**
+ * @description:to validate and the pass the controller to service
+ * @param:$scope,loginService
+ */
     app.controller("loginCtrl", function ($scope, servicesLogin) {
         $scope.submit = () => {
             var data = {
@@ -11,6 +15,11 @@
             servicesLogin.login(data, $scope);
         }
     });
+
+ /**
+ * @description:to validate the pass the controller to service
+ * @param:$scope,servicesLogin
+ */
     
     app.controller("registrationCntr", function ($scope, $location, servicesLogin) {
        
@@ -30,6 +39,10 @@
         }
     });
     
+ /**
+ * @description:to validate the pass the controller to service
+ * @param:$scope,servicesLogin
+ */
     app.controller("forgotPasswordCtrl", function ($scope, servicesLogin) {
        
         $scope.forgotPassword = () => {
@@ -41,6 +54,10 @@
     });
     
     
+ /**
+ * @description:to validate the pass the controller to service
+ * @param:$scope,servicesLogin
+ */
     app.controller("resetPasswordCtrl", function ($scope, servicesLogin, $location) {
         //checks for the token exist,if exist split the toekn from url
         if ($location.url().indexOf('token') !== -1) {

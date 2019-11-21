@@ -22,7 +22,6 @@ exports.register = (req, res) => {
             console.log("errpo-register", error);
             console.log("REs", response)
         } else {
-
             userService.register(req, (err, data) => {
                 if (err) {
                     response.sucessss = false;

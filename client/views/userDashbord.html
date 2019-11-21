@@ -43,10 +43,10 @@
                         <strong >{{receiverEmail }}</strong>
                     </button>
                     <div ng-repeat="chat in msgs" class="chat">
-                        <p class="chatMsg" ng-show="chat.to != firstName" style="text-align:left;color:black">
-                            {{chat.from}}:::<strong>{{chat.msg}}</strong></p>
-                        <p class="chatMsg" ng-show="chat.firstName == firstName" style="text-align:right;color:black">
-                            <strong>{{chat.msg}}</strong></p>
+                        <p class="chatMsg" ng-show="chat.to != firstName" style="text-align:left;color:black;float:right ">
+                           <strong>{{chat.msg}}</strong></p>
+                        <p class="chatMsg" ng-show="chat.firstName == firstName" style="text-align:right;color:black;float:left ;">
+                           <strong>{{chat.msg}}</strong></p>
                     </div>
                 </div>
                 <div class="typemsg">
