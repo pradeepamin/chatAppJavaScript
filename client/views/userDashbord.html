@@ -1,63 +1,50 @@
-<!-- <html ng-controller="myApp">
-
-<head>
-    <title>Chat Application</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head> -->
-
-
-<div style='width:100%;height:100%;'>
-    <div class="vw-60 vh-90" id="body-color">
-
-        <div class="col" id="navi-color">
-            <div class="border" id="border" <div role="navigation">
-                <center>
-                        <h4 class="navbar-brand"><label class="display-6"><strong></strong>Chat Application</strong></label></h4>
-                </center>
-            </div>
-            <div role="navigation" style="text-align: right" class="w-100 p-3">
-                <label class="display-5">
-                    <strong>Welcome--{{ firstName }}</strong>
-                </label>
-                <button class="btn btn-default" ng-click="logout()">
-              
-                    <a href="http://localhost:3000/#!/login">logout</a>
-                </button>
-            </div>
-        </div>
-        <div class="c1">
-        <div>
-            <ul  ng-repeat="user in allUsers">
-                <li ng-click="person(user.firstName)">
-                    {{ user.firstName }}
-                </li>
-            </ul>
-        </div>
-        <div class="rows">
-            <div>
-                <div class="col-sm-12" id="navi-color-body">
-                    <button class="btn btn-default">
-                        <strong >{{receiverEmail }}</strong>
-                    </button>
-                    <div ng-repeat="chat in msgs" class="chat">
-                        <p class="chatMsg" ng-show="chat.to != firstName" style="text-align:left;color:black;float:right ">
-                           <strong>{{chat.msg}}</strong></p>
-                        <p class="chatMsg" ng-show="chat.firstName == firstName" style="text-align:right;color:black;float:left ;">
-                           <strong>{{chat.msg}}</strong></p>
+<body>
+    <div ng-controller="controllerChat">
+        < <div style='width:100%;height:100%;'>
+            <div class="vw-60 vh-90" id="body-color">
+                <div class="col" id="navi-color">
+                    <div class="border" id="border" <div role="navigation">
+                        <center>
+                            <h4 class="navbar-brand"><label class="display-6"><strong></strong>Chat
+                                    Application</strong></label></h4>
+                        </center>
+                    </div>
+                    <div role="navigation" style="text-align: right" class="w-100 p-3">
+                        <label class="display-5">
+                            <strong>Welcome {{ currUser }}</strong>
+                        </label>
+                        <button class="btn btn-default" ng-click="logout()">
+                            <a href="http://localhost:3000/#!/login">logout</a>
+                        </button>
                     </div>
                 </div>
-                <div class="typemsg">
-                        <input type="text" name="msg" ng-model="msg1"  placeholder="Type a message...."
-                            style=height:30px;" ng-keyup=" $event.keyCode==13 && storeMsg()">
-                        <button class="fa fa-send" ng-click="storeMsg();"> send</button>
+                <div class="c1">
+                    <div>
+                        <!-- <ul  ng-repeat="user in allUsers"> -->
+                        <h6 ng-repeat="x in userData" ng-click="person(x)" ng-show='currUser != x.firstName'>
+                            <button class="userButton" type="submit">{{x.firstName}}</button>
+                        </h6>
+                        <!-- </ul> -->
                     </div>
+                    <div class="rows">
+                        <div>
+                            <div class="col-sm-12" id="navi-color-body">
+                                <button class="btn btn-default">
+                                    <strong>{{receiverName }}</strong>
+                                </button>
+                                <div ng-repeat="chat in msgData" class="chat">
+                                    <p class="rtext" ng-show="currUserId == chat.senderId" style="text-align:left;color:black">
+                                        <strong>{{chat.msg}}</strong></p>
+                                    <p class="ltext" ng-show="currUserId != chat.senderId" style="text-align:right;color:black"><strong>{{chat.msg}}</p>
+                                </div>
+                            </div>
+                            <div autoscroll="true">
+                                <input class="inputbox" type="text" ng-model="msg" name="msg">
+                                <button ng-click="sendMsg(msg);clearTextArea()">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
-    </div>
-</div>
-
-<!-- </html> -->
+</body>

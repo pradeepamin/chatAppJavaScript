@@ -18,6 +18,7 @@ const routers = require('./router/router.js')
 app.use(bodyParser.json());          //to support json encode bodies
 app.use(bodyParser.urlencoded({ extended: true }))  //app.use() to specify middleware as the callback function
 app.use(expressValidator());
+const ChatCtrl = require('./controller/userController')
 // to connect Database
 //importing mongoose (mongodb)
 const dbconfig = require('./configuration/dbConfig.js')
@@ -43,26 +44,73 @@ var server = app.listen(process.env.PORT, () => {
 });
 const io = require('socket.io').listen(server);
 io.on('connection', (socket) => {
-    console.log("Connecting socket");
-
-    socket.on("Storemsg", (data) => {
-        console.log("emit an event to the socket in service side");
-        chat.msg(data, (err, res) => {
+    console.log("user connected")
+    socket.on('newMsg', data => {
+        console.log("data in sockets",data);
+        
+        ChatCtrl.chat(data, (err, result) => {
             if (err) {
-                console.log("unsuccesful")
+                console.log("error on server while receiving data");
             } else {
-                console.log("In serever.js", res);
-                io.sockets.emit("updatedata", res);
-                // console.log("update the data.")
+                console.log(result)
+                io.sockets.emit('Message', result)
             }
-        });
-    });
-
-});
-io.on('disconnect', function () {
-    console.log("socket disconnected");
-
+        })
+    })
 })
+// const http = require('http').Server(server);
+// const io = require('socket.io')(http);
+
+// io.on('connection', (socket) => {
+//     console.log("socket connected");
+//     socket.on("newMsg", (message) => {
+//         console.log("in socket on",message);
+        
+//         ChatCtrl.chat(message).then(res => {
+//             console.log("entered", res);
+
+//         }).catch(err => {
+//             console.log("err", err);
+
+//         })
+//         console.log("in server-->", message);
+
+//         initPromise.then(function (data) {
+//             console.log("server--", data);
+//         }).catch(function (err) {
+//             console.log("err---", err);
+//             return err;
+//         });
+//         io.emit(String(message.to), message);
+//     })
+//     io.on('disconnect', (socket) => {
+//         console.log("socket disconnected");
+//     })
+// })
+
+
+// const io = require('socket.io').listen(server);
+// io.on('connection', (socket) => {
+//     console.log("Connecting socket");
+
+//     socket.on("newMsg", (data) => {
+//         console.log("emit an event to the socket in service side");
+//         chat.msg(data, (err, res) => {
+//             if (err) {
+//                 console.log("unsuccesful")
+//             } else {
+//                 console.log("In serever.js", res);
+//                 io.sockets.emit("updatedata", res);
+//                 // console.log("update the data.")
+//             }
+//         });
+//     });
+
+// });
+// io.on('disconnect', function () {
+//     console.log("socket disconnected");
+
+// })
 
 
 module.exports = app

@@ -116,4 +116,12 @@ li{
     justify-content: space-between;
     flex-wrap: wrap;
 }
- 
+.ltext{
+    float:left;
+    margin-right: 5%;
+}
+.rtext{
+    text-align: right;
+    float: right;
+    margin-left: 5%;
+}

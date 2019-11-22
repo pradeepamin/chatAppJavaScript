@@ -160,9 +160,9 @@ exports.ResetPassword = (req, callback) => {
 exports.chat = (req, callback) => {
     console.log("req from -----", req);
     var details = new chatMsg({
-        "from": req.body.from,
-        "to": req.body.to,
-        "msg": req.body.msg
+        "from": req.from,
+        "to": req.to,
+        "msg": req.msg
     });
     console.log("details from -----", details);
     //creates a collection

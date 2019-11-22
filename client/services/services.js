@@ -6,8 +6,8 @@
 * @param $location,is a global scope,used to redirect the pages.
 */
 
-(function(){
-    var app=angular.module('myApp');
+// (function(){
+//     var app=angular.module('myApp');
 
     app.service('servicesLogin', function ($http, $location, SocketService) {
         /**
@@ -18,20 +18,18 @@
      * */
         this.login = (data, $scope) => {
             //sending the data as a http request
-            console.log("logiasdn data",data);
-            
+            // console.log("logiasdn data",data);            
             try {
                 $http({
                     method: 'POST',
                     url: 'http://localhost:3000/login',
                     data: data
-                
                 }).then(function sucessCallback(response) {
                     let user = response.data.data;
                    localStorage.setItem('firstName',user['firstName'])
-
-    
-
+                   localStorage.setItem('loginId',response.data.data._id);
+                   localStorage.setItem('logintoken', response.data.data.token);
+                    console.log("login res-->",response); 
                     $location.path("/userDashbord");
                 },
                     function errrCallback(response) {
@@ -135,4 +133,4 @@
         }
         
     });
-})();
+// })();

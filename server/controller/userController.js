@@ -156,21 +156,30 @@ exports.resetPassword = (req, res) => {
 
 exports.chat = (req, res) => {
     userService.chat(req, (err, data) => {
+        let response={}
         if (err) {
-            res.status(404).send(err);
+            response.success = false;
+            response.error = err;
+            return err;
         } else {
-            res.status(200).send(data);
+            response.success = true;
+            response.result = data;           
+            return res;
         }
     })
 }
 
 exports.getUsers=(req,res)=>{
+    var response = {};
     userService.getUsers(req,(err,data)=>{
         if(err)
-        {
-            res.status(400).send(err);
+        {   response.success = false;
+            response.error = err;
+            return res.status(400).send(response);
         }else{
-            res.status(200).send(data);
+            response.success = true;
+            response.result = data;           
+            return res.status(200).send(response);
         }
     })
 }
@@ -179,13 +188,13 @@ exports.getMsg=(req,res)=>{
     var response={};
         userService.getMsg(req,(err,data)=>{
             if(err){
-                response.sucess=false;
-                response.data=err;
-                res.status(404).send(err);
+                response.success = false;
+                response.error = err;
+                return res.status(400).send(response);
             }else{
-                response.sucess=true;
-                response.data=data;
-                res.status(200).send(data);
+                response.success = true;
+                response.result = data;           
+                return res.status(200).send(response);
             }
         })
 }

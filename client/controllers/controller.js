@@ -1,10 +1,11 @@
-(function(){
-    var app=angular.module('myApp');
+
+// (function(){
+//     var app=angular.module('myApp');
     /**
  * @description:to validate and the pass the controller to service
  * @param:$scope,loginService
  */
-    app.controller("loginCtrl", function ($scope, servicesLogin) {
+    app.controller("loginCtrl", function ($scope,$location ,servicesLogin) {
         $scope.submit = () => {
             var data = {
                 "email": $scope.email,
@@ -13,7 +14,8 @@
             console.log("data", data);
             console.log("$SCCope",$scope)
             servicesLogin.login(data, $scope);
-        }
+        //    $location.path("/userDashbord");
+        }    
     });
 
  /**
@@ -78,4 +80,4 @@
             }
         }
     });    
-})();
+// })();
