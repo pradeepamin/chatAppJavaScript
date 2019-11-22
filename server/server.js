@@ -46,71 +46,11 @@ const io = require('socket.io').listen(server);
 io.on('connection', (socket) => {
     console.log("user connected")
     socket.on('newMsg', data => {
-        console.log("data in sockets",data);
-        
-        ChatCtrl.chat(data, (err, result) => {
-            if (err) {
-                console.log("error on server while receiving data");
-            } else {
-                console.log(result)
-                io.sockets.emit('Message', result)
-            }
-        })
+        console.log("data in sockets", data);
+
+        console.log("chat data", ChatCtrl.chat(data))
+        io.sockets.emit('Message', data)
     })
 })
-// const http = require('http').Server(server);
-// const io = require('socket.io')(http);
-
-// io.on('connection', (socket) => {
-//     console.log("socket connected");
-//     socket.on("newMsg", (message) => {
-//         console.log("in socket on",message);
-        
-//         ChatCtrl.chat(message).then(res => {
-//             console.log("entered", res);
-
-//         }).catch(err => {
-//             console.log("err", err);
-
-//         })
-//         console.log("in server-->", message);
-
-//         initPromise.then(function (data) {
-//             console.log("server--", data);
-//         }).catch(function (err) {
-//             console.log("err---", err);
-//             return err;
-//         });
-//         io.emit(String(message.to), message);
-//     })
-//     io.on('disconnect', (socket) => {
-//         console.log("socket disconnected");
-//     })
-// })
-
-
-// const io = require('socket.io').listen(server);
-// io.on('connection', (socket) => {
-//     console.log("Connecting socket");
-
-//     socket.on("newMsg", (data) => {
-//         console.log("emit an event to the socket in service side");
-//         chat.msg(data, (err, res) => {
-//             if (err) {
-//                 console.log("unsuccesful")
-//             } else {
-//                 console.log("In serever.js", res);
-//                 io.sockets.emit("updatedata", res);
-//                 // console.log("update the data.")
-//             }
-//         });
-//     });
-
-// });
-// io.on('disconnect', function () {
-//     console.log("socket disconnected");
-
-// })
-
 
 module.exports = app

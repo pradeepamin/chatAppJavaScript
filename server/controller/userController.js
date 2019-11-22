@@ -104,8 +104,6 @@ exports.forgotPassword = (req, res) => {
                     let payLoad = data._id;
                     let obj = tokenGenerate.GenerateToken(payLoad);
                     console.log("controller pay load", obj);
-                    // let url='http://localhost:3000/resetPassword/+obj.token'
-                    // let url = `http://localhost:3000/#!/resetPassword/${obj.token}`
                     let url = `http://localhost:3000/#!/resetPassword/${obj.token}`
                     console.log("controller pay load", url);
                     nodeMail.sendMailer(url, req.body.email)
@@ -154,7 +152,7 @@ exports.resetPassword = (req, res) => {
 }
 
 
-exports.chat = (req, res) => {
+exports.chat = (req) => {
     userService.chat(req, (err, data) => {
         let response={}
         if (err) {
@@ -162,9 +160,11 @@ exports.chat = (req, res) => {
             response.error = err;
             return err;
         } else {
+            console.log("data in chat contr4oller",data);
+            
             response.success = true;
             response.result = data;           
-            return res;
+            return data;
         }
     })
 }

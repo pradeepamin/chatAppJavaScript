@@ -33,10 +33,12 @@
                                     <strong>{{receiverName }}</strong>
                                 </button>
                                 <div ng-repeat="chat in msgData" class="chat">
-                                    <p class="rtext" ng-show="currUserId == chat.senderId" style="text-align:left;color:black">
+                                    <p class="rtext" ng-show="currUserId == chat.senderId" style="text-align:right;color:black">
                                         <strong>{{chat.msg}}</strong></p>
-                                    <p class="ltext" ng-show="currUserId != chat.senderId" style="text-align:right;color:black"><strong>{{chat.msg}}</p>
-                                </div>
+                                    <p class="ltext" ng-show="currUserId = chat.senderId" style="text-align:left;color:black">
+                                        <strong>{{chat.msg}}</strong></p>
+                                        
+                                    </div>
                             </div>
                             <div autoscroll="true">
                                 <input class="inputbox" type="text" ng-model="msg" name="msg">

@@ -1,3 +1,10 @@
+/**
+* @desc is a controler function ,contains all opertions to perform chat
+* @param getUserService ,invokes when the user details is required
+* @param $scope ,inheriates the parent process $rootScope,which can be used throught this session.
+* @param $location,is a global scope,used to redirect the pages.
+*/
+
 app.service('getUserService', function ($http, $location) {
 
     this.getUserServiceData = function ($scope) {
@@ -53,85 +60,5 @@ app.service('getUserService', function ($http, $location) {
             return err;
         })
     }
-
-
-
 });
 
-
-
-
-
-
-// (function () {
-
-//     const app = angular.module('myApp');
-//     /**
-//         * @description:to call getusername templates as on the request
-//         * @param:$scope
-//         */
-
-//     app.service("chatService", function ($http, $location) {
-
-//         this.getUserServiceData = function ($scope) {
-//             console.log("data in service--", $scope);
-
-//             var token = localStorage.getItem('logintoken');
-//             console.log("token---", token);
-
-//             return $http({
-//                 method: 'GET',
-//                 url: 'http://localhost:3000/getUsers'
-//             }).then(function (response) {          
-
-//                 console.log("response in getAllUsers server---", response);
-
-//                 if (response.data.success === true) {
-//                     console.log("service data---", response.data.result);
-//                     $scope.currUser = localStorage.getItem('loginuser');
-//                     $scope.currUserId = localStorage.getItem('loginId');
-//                     $scope.userData = response.data.result;
-//                 } else {               
-//                     console.log(response);  
-//                     $location.path('/login');              
-//                 }    
-//             }).catch(function (error) {
-//                 $location.path('/login');
-//                 alert('failed...');
-//                 console.log('failed ...', error);
-//             });
-//         }
-
-
-
-
-    //     this.getUser = function () {
-    //         console.log("service in getAllUser");
-    //         return $http({
-    //             method: 'GET',
-    //             url: 'http://localhost:3000/getUsers'
-    //         });
-    //     }
-    //     /**
-    //    * @description:to call getusermsg templates as on the request
-    //    * @param:$scope,value
-    //    */
-    //     this.getMsg = function ($scope) {
-    //         return $http({
-    //             method: "GET",
-    //             url: 'http://localhost:3000/getMsg'
-    //         }).then(function sucessCallback(response) {
-    //             console.log("RESPONSE---------*********", response);
-    //             $scope.msgs = response.data;
-    //         },
-    //             function errrCallback(response) {
-    //                 // $scope.value = "No users registred.. ";
-    //                 console.log("fetch UnSucessFull ===>", response);
-    //             })
-    //     }
-
-
-
-
-//     })
-// })();
