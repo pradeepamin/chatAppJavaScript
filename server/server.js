@@ -15,8 +15,10 @@ const expressValidator = require('express-validator');
 require('dotenv').config()
 const app = express();
 const routers = require('./router/router.js')
-app.use(bodyParser.json());          //to support json encode bodies
-app.use(bodyParser.urlencoded({ extended: true }))  //app.use() to specify middleware as the callback function
+app.use(bodyParser.json()); //to support json encode bodies
+app.use(bodyParser.urlencoded({
+    extended: true
+})) //app.use() to specify middleware as the callback function
 app.use(expressValidator());
 const ChatCtrl = require('./controller/userController')
 // to connect Database
@@ -25,8 +27,9 @@ const dbconfig = require('./configuration/dbConfig.js')
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect(dbconfig.url, {
-    useNewUrlParser: true, useUnifiedTopology: true
-})
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
     .then(() => {
         console.log("Successfully connected to the database");
     })
@@ -36,6 +39,7 @@ mongoose.connect(dbconfig.url, {
     })
 
 app.use('/', routers);
+console.log("VINAyak here");
 
 app.use(express.static('../client'))
 //Initalizing the app port number,Telling frame work to start service
