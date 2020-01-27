@@ -40,6 +40,7 @@ mongoose.connect(dbconfig.url, {
 
 app.use('/', routers);
 console.log("Pradeep")
+console.log("Vinayak");
 
 app.use(express.static('../client'))
 //Initalizing the app port number,Telling frame work to start service
